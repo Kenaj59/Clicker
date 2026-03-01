@@ -1,0 +1,238 @@
+/* --- Główny Wygląd --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- Panele --- */
+.left-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px solid #333;
+    padding: 20px;
+    background: radial-gradient(circle at center, #222 0%, #1a1a1a 100%);
+    min-width: 300px;
+}
+
+.right-panel {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    background-color: #252525;
+    min-width: 400px;
+    position: relative; /* Ważne dla pozycjonowania */
+}
+
+/* --- Statystyki --- */
+.stat-box { text-align: center; margin-bottom: 20px; }
+.money-display { font-size: 3em; font-weight: bold; color: #81c784; text-shadow: 0 0 10px rgba(76, 175, 80, 0.3); }
+.income-display { font-size: 1.2em; color: #aaa; margin-bottom: 5px; }
+
+/* --- Główny Przycisk PRACUJ --- */
+#click-btn {
+    background: linear-gradient(145deg, #2e7d32, #1b5e20);
+    border: 4px solid #4CAF50;
+    border-radius: 50%;
+    width: 180px; height: 180px;
+    color: white; font-size: 1.5em; font-weight: bold; cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transition: transform 0.1s;
+    user-select: none; margin-bottom: 20px;
+}
+#click-btn:active { transform: scale(0.95); }
+
+.upgrade-btn {
+    background-color: #ff9800; color: #fff; border: none; padding: 10px 20px;
+    border-radius: 25px; font-size: 1em; cursor: pointer; margin-bottom: 10px;
+}
+.upgrade-btn:disabled { background-color: #555; cursor: not-allowed; opacity: 0.7; }
+
+/* --- Zakładki --- */
+.nav-tabs { display: flex; background-color: #111; border-bottom: 1px solid #333; }
+.tab-btn {
+    flex: 1; padding: 15px; background-color: #111; border: none; color: #888;
+    cursor: pointer; font-weight: bold; border-bottom: 3px solid transparent;
+}
+.tab-btn.active { background-color: #252525; color: #4CAF50; border-bottom: 3px solid #4CAF50; }
+.tab-content { display: none; padding: 20px; overflow-y: auto; flex: 1; }
+.tab-content.active-content { display: block; }
+
+/* --- Listy i Karty (Naprawa Biznesów) --- */
+.item-card {
+    background-color: #333; margin-bottom: 10px; padding: 15px;
+    border-radius: 8px; display: flex; align-items: center; justify-content: space-between;
+}
+.biz-border { border-left: 5px solid #4CAF50; }
+.ach-border { border-left: 5px solid #FFD700; opacity: 0.5; }
+.ach-border.unlocked { opacity: 1; background: linear-gradient(90deg, #333 0%, #3a3a20 100%); }
+
+/* --- Giełda --- */
+.stock-card {
+    background-color: #333; margin-bottom: 15px; padding: 15px;
+    border-radius: 8px; border-left: 5px solid #2196F3;
+}
+.stock-chart-container { height: 150px; width: 100%; margin-bottom: 10px; background: #222; }
+
+/* --- PRZYCISKI AKCJI (Tu była usterka) --- */
+
+/* 1. Domyślny styl przycisku */
+.btn-action {
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 0.9em;
+    transition: background 0.2s;
+    /* Domyślnie NIE rozciągaj się (naprawa dla biznesów) */
+    flex: none; 
+    width: auto;
+    min-width: 80px;
+}
+
+/* 2. Kontener przycisków giełdowych */
+.stock-actions {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+/* 3. Tylko przyciski wewnątrz giełdy mają się rozciągać */
+.stock-actions .btn-action {
+    flex: 1; /* Rozciągnij się */
+    min-width: 40px; /* Zmniejsz min-width żeby się zmieściły */
+    padding: 5px;
+}
+
+/* Kolory */
+.btn-blue { background-color: #2196F3; }
+.btn-blue:hover { background-color: #1976D2; }
+.btn-red { background-color: #d32f2f; }
+.btn-red:hover { background-color: #b71c1c; }
+.btn-purple { background-color: #9c27b0; }
+.btn-purple:hover { background-color: #7b1fa2; }
+
+.btn-action:disabled {
+    background-color: #444 !important;
+    color: #777;
+    cursor: not-allowed;
+}
+
+/* --- Panel Systemowy --- */
+.system-panel { margin-top: auto; width: 100%; text-align: center; border-top: 1px solid #333; padding-top: 20px; }
+#save-msg { color: #888; font-size: 0.8em; height: 1.2em; margin-bottom: 5px; }
+
+/* --- NAPRAWA POWIADOMIEŃ (POP-UPÓW) --- */
+#notification-area {
+    position: fixed; /* Musi być fixed, żeby pływać nad wszystkim */
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    z-index: 9999; /* Zawsze na wierzchu */
+    pointer-events: none; /* Pozwala klikać przez dymki */
+}
+
+.notification {
+    background-color: #222;
+    color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+    opacity: 0;
+    transform: translateX(50px);
+    animation: slideIn 0.5s forwards, fadeOut 0.5s 3s forwards;
+    display: flex;
+    align-items: center;
+    border-left: 5px solid #fff;
+    font-weight: bold;
+}
+
+.notify-success { border-color: #4CAF50; background: linear-gradient(90deg, #1b5e20 0%, #222 100%); }
+.notify-gold { border-color: #FFD700; background: linear-gradient(90deg, #4a3b00 0%, #222 100%); }
+.notify-error { border-color: #d32f2f; background: linear-gradient(90deg, #3e1212 0%, #222 100%); }
+
+.notify-icon { font-size: 1.5em; margin-right: 15px; }
+
+@keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeOut { to { opacity: 0; transform: translateX(50px); } }
+/* --- MODAL (Okno Dealera) --- */
+.modal-overlay {
+    display: none; /* Domyślnie ukryte */
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #252525;
+    width: 90%;
+    max-width: 800px;
+    height: 80vh;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #444;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
+
+.modal-header {
+    padding: 20px;
+    background: #111;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
+
+.btn-close {
+    background: transparent; border: none; color: #888;
+    font-size: 1.5em; cursor: pointer;
+}
+.btn-close:hover { color: #fff; }
+
+.modal-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.dealer-column {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    border-right: 1px solid #333;
+}
+.dealer-column:last-child { border-right: none; }
+
+/* --- Karty Samochodów --- */
+.car-card {
+    background: #333;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 5px solid #673AB7; /* Domyślny kolor */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.car-actions {
+    display: flex;
+    gap: 5px;
+}
+.car-actions .btn-action { flex: 1; }
+.btn-green { background-color: #388E3C; }

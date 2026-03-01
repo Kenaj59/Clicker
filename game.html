@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imperium Finansowe - Dealer Fix</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="left-panel">
+        <div class="stat-box">
+            <div class="money-display">$<span id="balance">0</span></div>
+            <div class="income-display">Pasywnie: +$<span id="income">0</span> / sek</div>
+        </div>
+        
+        <button id="click-btn" onclick="game.manualClick()">PRACUJ</button>
+        <button id="btn-upgrade-click" class="upgrade-btn" onclick="game.buyClickUpgrade()">Szkolenie</button>
+        
+        <button id="btn-open-dealer" class="upgrade-btn" style="background:#673AB7; display:none;" onclick="game.dealer.open()">
+            🚗 Salon Samochodowy
+        </button>
+        <button id="btn-open-realestate" class="upgrade-btn" style="background:#009688; display:none;" onclick="game.realEstate.open()">
+            🏢 Biuro Nieruchomości
+        </button>
+        <div class="system-panel">
+            <p id="save-msg"></p>
+            <button class="btn-action" style="background:#444" onclick="game.saveGame()">Zapisz</button>
+            <button class="btn-action" style="background:#d32f2f" onclick="game.hardReset()">RESET</button>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="game.switchTab('business')">Biznesy</button>
+            <button class="tab-btn" onclick="game.switchTab('invest')">Giełda</button>
+            <button class="tab-btn" onclick="game.switchTab('achievements')">Osiągnięcia</button>
+        </div>
+
+        <div id="tab-business" class="tab-content active-content">
+            <h2>Twoje Imperium</h2>
+            <div id="business-list"></div>
+        </div>
+
+        <div id="tab-invest" class="tab-content">
+            <h2>Giełda</h2>
+            <p style="font-size: 0.8em; color: #888;">Ceny odświeżają się co 1 minutę.</p>
+            <div id="stock-list"></div>
+        </div>
+
+        <div id="tab-achievements" class="tab-content">
+            <h2>Osiągnięcia</h2>
+            <div id="achievement-list"></div>
+        </div>
+    </div>
+
+    <div id="dealer-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Dealer Samochodowy</h2>
+                <button class="btn-close" onclick="game.dealer.close()">X</button>
+            </div>
+            <div class="modal-body">
+                <div class="dealer-column">
+                    <h3>Rynek (Okazje)</h3>
+                    <div id="dealer-market-header"></div> 
+                    <div id="dealer-market-list"></div>
+                </div>
+                <div class="dealer-column">
+                    <h3>Twój Garaż</h3>
+                    <div id="dealer-garage-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="realestate-modal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Rynek Nieruchomości</h2>
+            <button class="btn-close" onclick="game.realEstate.close()">X</button>
+        </div>
+        <div class="modal-body">
+            <div class="dealer-column">
+                <h3>Oferty sprzedaży</h3>
+                <div id="re-market-list"></div>
+            </div>
+            <div class="dealer-column">
+                <h3>Twoje portfolio</h3>
+                <div id="re-inventory-list"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="notification-area"></div>
+
+    <script src="dealer.js"></script>
+    <script src="script.js"></script>
+    <script src="realestate.js"></script>
+</body>
+</html>
